@@ -1,0 +1,176 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Contact List API",
+        "description": "REST API to contact list",
+        "version": "1.0.0",
+        "contact": {
+            "name": "John Doe",
+            "email": "john.doe@gmail.com",
+            "url": "https://www.john.doe.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://9000-ljavierrodr-introtoswag-x9muofqpyu2.ws-us67.gitpod.io",
+            "description": "Local Server"
+        },
+        {
+            "url": "https://aws.amazonaws.com.client.com",
+            "description": "Production Server"
+        }
+    ],
+    "paths": {
+        "/api/contacts": {
+            "get": {
+                "tags": [
+                    "Contactos"
+                ],
+                "description": "Devuelve el listado completo de contactos registrados",
+                "operationId": "getContacts",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Los contactos fueron obtenidos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/Contact"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contacts/{id}": {
+            "get": {
+                "sumary": "Return a Contact by Id",
+                "tags": [
+                    "Contactos"
+                ],
+                "description": "Devuelve el contacto registrado por su id",
+                "operationId": "getContactById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "integer",
+                            "required": true,
+                            "description": "Contact Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El contacto fue obtenerido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Contact"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "El contacto no fue obtenerido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contacts/store": {
+            "post": {
+                "sumary": "create a new contact",
+                "tags": [
+                    "Contactos"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "$ref": "#/components/schemas/InputContact"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {}
+        }
+    },
+    "components": {
+        "schemas": {
+            "Contact": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "An id of a contact",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "A name of a contact",
+                        "example": "John"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "description": "A lastname of a contact",
+                        "example": "Doe"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "A phone number of a contact",
+                        "example": "+1 5555 55 55"
+                    }
+                }
+            },
+            "InputContact": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "A name of a contact",
+                        "example": "John"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "description": "A lastname of a contact",
+                        "example": "Doe"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "A phone number of a contact",
+                        "example": "+1 5555 55 55"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Contactos",
+            "description": "Modulo de Contactos (CRUD)"
+        },
+        {
+            "name": "Usuarios",
+            "description": "Modulo de Usuarios (CRUD)"
+        }
+    ]
+}
